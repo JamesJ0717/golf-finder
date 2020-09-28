@@ -23,7 +23,7 @@ app.get("/api/v1/zip", getAreaInfo);
 app.get("/api/v1/courses", getLocalCourses);
 app.post("/api/v1/course", getCourseInfo);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  console.log(`Example app listening at ${process.env.URL}!`);
 });

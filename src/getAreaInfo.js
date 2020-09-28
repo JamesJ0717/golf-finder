@@ -11,10 +11,10 @@ router.use("/", (req, res) => {
   db.getZip(zip, async (err, data) => {
     if (err) console.error(err.message);
 
-    console.log(data);
+    // console.log(data);
 
     if (data === undefined) {
-      console.log(zip);
+      // console.log(zip);
       let response = await axios(`https://www.zipcodeapi.com/rest/${process.env.ZIP_API_KEY}/info.json/${zip}`);
       db.insertZip(
         [

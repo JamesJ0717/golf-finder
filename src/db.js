@@ -14,9 +14,9 @@ class Db {
                 id integer PRIMARY KEY,
                 name text,
                 slug text UNIQUE,
+                url text,
                 par integer,
-                yardage integer,
-                slope integer,
+                tees text,
                 zip integer,
                 dbID integer UNIQUE,
                 scorecardUrl text
@@ -42,19 +42,25 @@ class Db {
     return;
   }
 
-  getAllCourses() {
+  getAllCourses(callback) {
     return this.db.all(`SELECT * FROM course`, function (err, rows) {
       callback(err, rows);
     });
   }
 
+  getByZip(zip, callback) {
+    return this.db.all(`SELECT * FROM course WHERE zip = ?`, zip, (err, row) => {
+      callback(err, row);
+    });
+  }
+
   getByCourse(slug, callback) {
-    return this.db.get(`SELECT * FROM course WHERE slug = ?`, slug, (err, data) => callback(err, data));
+    return this.db.get(`SELECT * FROM course WHERE slug = ?`, slug, (err, row) => callback(err, row));
   }
 
   insertCourse(course, callback) {
     return this.db.run(
-      "INSERT INTO course (name,slug,par,yardage,slope,zip,dbID,scorecardUrl) VALUES (?,?,?,?,?,?,?,?)",
+      "INSERT INTO course (name,slug,url,par,tees,zip,dbID,scorecardUrl) VALUES (?,?,?,?,?,?,?,?)",
       course,
       (err) => callback(err)
     );
