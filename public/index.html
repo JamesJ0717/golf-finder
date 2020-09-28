@@ -11,45 +11,95 @@
   <body class="grey lighten-3">
     <nav>
       <div class="nav-wrapper grey darken-3">
-        <a href="/" class="brand-logo">Local Golf</a>
+        <a href="/" class="brand-logo center">Local Golf</a>
       </div>
     </nav>
     <main id="app" class="container">
-      <div class="row" style="padding: 1em">
-        <div class="col s4">
-          <form class="form" v-if="formVisible" @submit.prevent="getCourses()">
-            <input class="col s6" type="text" v-model="zip" name="zip" id="zip" style="margin: 1em" />
-            <button type="submit" class="col s6 waves-effect waves-teal grey btn-large">Find Courses</button>
-          </form>
-        </div>
+      <div class="row centered" style="padding: 1em">
+        <form class="form" v-if="formVisible" @submit.prevent="getCourses()">
+          <input class="col s4" type="text" v-model="zip" name="zip" id="zip" style="margin: 1em; text-align: center" />
+          <button type="submit" class="col s6 waves-effect waves-teal grey btn-large right">Find Courses</button>
+        </form>
+      </div>
 
-        <div class="progress col s8" v-if="loading">
-          <div class="indeterminate"></div>
-        </div>
+      <div class="progress" v-if="loading">
+        <div class="indeterminate"></div>
+      </div>
 
-        <div class="col s8">
-          <select id="courses" @change="chooseCourse($event)"></select>
-        </div>
+      <div class="">
+        <select id="courses" @change="chooseCourse($event)"></select>
       </div>
 
       <div id="courseInfo" v-if="course">
         <h3>{{ course.name }}</h3>
-        <table class="centered">
-          <thead>
-            <tr>
-              <th>Par</th>
-              <th>Yardage</th>
-              <th>Slope</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ course.par }}</td>
-              <td>{{ course.yardage }}</td>
-              <td>{{ course.slope }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <a :href="course.url">{{ course.url }}</a>
+        <div class="row">
+          <table class="centered col s4">
+            <thead>
+              <tr>
+                <th>Par</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ course.par }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="centered col s8">
+            <thead>
+              <tr>
+                <th>Tee</th>
+                <th>Yardage</th>
+                <th>Slope</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="tee in scorecard" :key="tee.name">
+                <td>{{ tee.name }}</td>
+                <td>{{ tee.yardage }}</td>
+                <td>{{ tee.slope }}</td>
+                <td>{{ tee.rating }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="centered">
+        <h4>Calculate Course Handicap</h4>
+        <div class="row">
+          <form class="col s12" v-if="formVisible" @submit.prevent="calcHandicap()">
+            <div class="row">
+              <div class="input-field col s12 m2">
+                <input type="text" v-model="playerIndex" id="playerIndex" style="margin: 1em; text-align: center" />
+                <label for="playerIndex">Your Index</label>
+              </div>
+              <div class="input-field col s12 m2">
+                <input
+                  type="text"
+                  v-model="courseSlope"
+                  name="courseSlope"
+                  id="courseSlope"
+                  style="margin: 1em; text-align: center"
+                />
+                <label for="courseSlope">Slope</label>
+              </div>
+              <div class="col s12 m5 right">
+                <button type="submit" class="col s12 waves-effect waves-teal grey btn-large right">
+                  Calculate Handicap
+                </button>
+              </div>
+              <div class="input-field col s12 m2 right">
+                <input v-model="courseHandicap" id="courseHandicap" style="margin: 1em; text-align: center" />
+                <label for="courseHandicap">Course Handicap</label>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
     <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>

@@ -8,10 +8,14 @@ const app = new Vue({
     formVisible: true,
     loading: false,
     done: false,
+    courseHandicap: 0,
+    playerIndex: 0,
+    courseSlope: 0,
   },
   methods: {
     async getCourses() {
       this.loading = true;
+      this.course = null;
       console.log(this.zip);
       let res = await fetch(`/api/v1/courses?zip=${this.zip}`);
       let body = await res.json();
@@ -44,7 +48,12 @@ const app = new Vue({
       let body = await res.json();
       console.log(body);
       this.course = body.course;
-      this.scorecard = body.course.scorecardUrl;
+      this.scorecard = JSON.parse(body.course.tees);
+      console.log(this.scorecard);
+    },
+    calcHandicap() {
+      //Course Handicap = (Handicap Index) X (Slope Rating**) ÷ 113
+      this.courseHandicap = ((this.playerIndex * this.courseSlope) / 113).toFixed(0);
     },
   },
 });
