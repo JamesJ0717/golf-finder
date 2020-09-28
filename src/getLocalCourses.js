@@ -7,7 +7,7 @@ const cheerio = require("cheerio");
 router.use("/", async (req, res) => {
   //   console.log(req.query);
 
-  let locationData = await (await axios.get(`http://localhost:3000/api/v1/zip?zip=${req.query.zip}`)).data;
+  let locationData = await (await axios.get(`https://golf-scrape.herokuapp.com/api/v1/zip?zip=${req.query.zip}`)).data;
   let courses = await getLocalCourses(locationData);
   res.json({
     message: "Get courses",
@@ -47,7 +47,7 @@ async function getLocalCourses(area) {
         slope: undefined,
         zip: undefined,
       };
-      axios.post(`http://localhost:3000/api/v1/course`, {
+      axios.post(`https://golf-scrape.herokuapp.com/api/v1/course`, {
         slug: urlName,
       });
       courses.push(course);
