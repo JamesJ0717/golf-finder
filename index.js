@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const getLocalCourses = require("./src/getLocalCourses");
-const getCourseInfo = require("./src/getCourseInfo");
 const getAreaInfo = require("./src/getAreaInfo");
 
 const app = express();
@@ -19,9 +18,8 @@ app.use(
   })
 );
 
-app.get("/api/v1/zip", getAreaInfo);
-app.get("/api/v1/courses", getLocalCourses);
-app.post("/api/v1/course", getCourseInfo);
+app.use("/api/v1/zip", getAreaInfo);
+app.use("/api/v1/courses", getLocalCourses);
 
 const port = process.env.PORT;
 app.listen(port, () => {
