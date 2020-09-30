@@ -12,6 +12,12 @@ const app = new Vue({
     playerIndex: 0,
     courseSlope: 0,
   },
+  created() {
+    document.addEventListener("DOMContentLoaded", function () {
+      var elems = document.querySelectorAll(".dropdown-trigger");
+      var instances = M.Dropdown.init(elems);
+    });
+  },
   methods: {
     async getCourses() {
       this.loading = true;
@@ -55,7 +61,7 @@ const app = new Vue({
     },
     calcHandicap() {
       //Course Handicap = (Handicap Index) X (Slope Rating**) ÷ 113
-      this.courseHandicap = ((this.playerIndex * this.courseSlope) / 113).toFixed(0);
+      this.courseHandicap = ((this.playerIndex * this.courseSlope) / 113).toFixed(1);
     },
   },
 });

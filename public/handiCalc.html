@@ -6,28 +6,41 @@
     <title>Handicap Calculator</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
 
   <body class="grey lighten-3">
     <nav>
       <div class="nav-wrapper grey darken-3">
         <a href="/" class="brand-logo left">Local Golf</a>
+        <ul class="right hide-on-med-and-up">
+          <li>
+            <a class="dropdown-trigger" href="/" data-target="dropdown">
+              <i class="material-icons right">hamburger_menu</i></a
+            >
+          </li>
+        </ul>
+
         <ul id="nav-mobile" class="right hide-on-small-and-down">
           <li><a href="handiCalc.html">Handicap Calculator</a></li>
         </ul>
       </div>
     </nav>
-    <main class="container">
+    <ul id="dropdown" class="dropdown-content">
+      <li><a href="handiCalc.html">Handicap Calculator</a></li>
+    </ul>
+
+    <main id="app" class="container">
       <div class="centered">
         <h4>Calculate Course Handicap</h4>
         <div class="row">
           <form class="col s12" v-if="formVisible" @submit.prevent="calcHandicap()">
             <div class="row">
-              <div class="input-field col s12 l2">
+              <div class="input-field col s6 l2">
                 <input type="text" v-model="playerIndex" id="playerIndex" style="margin: 1em; text-align: center" />
                 <span class="helper-text">Your Index</span>
               </div>
-              <div class="input-field col s12 l2">
+              <div class="input-field col s6 l2">
                 <input
                   type="text"
                   v-model="courseSlope"
@@ -53,5 +66,6 @@
     </main>
     <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
     <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>
