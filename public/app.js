@@ -16,7 +16,7 @@ const app = new Vue({
     async getCourses() {
       this.loading = true;
       this.course = null;
-      console.log(this.zip);
+      // console.log(this.zip);
       let res = await fetch(`/api/v1/courses?zip=${this.zip}`);
       let body = await res.json();
       console.log(body.courses);
@@ -25,6 +25,8 @@ const app = new Vue({
 
       this.done = true;
       const courseList = document.getElementById("courses");
+
+      document.getElementById("courseSelect").style.display = "block";
       for (let i = courseList.options.length - 1; i >= 0; i--) {
         courseList.remove(i);
       }
@@ -37,8 +39,8 @@ const app = new Vue({
       this.loading = false;
     },
     async chooseCourse(event) {
-      console.log(event.target.value);
-      let res = await fetch(`/api/v1/course`, {
+      // console.log(event.target.value);
+      let res = await fetch(`/api/v1/courses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,9 +48,9 @@ const app = new Vue({
         body: JSON.stringify({ slug: event.target.value }),
       });
       let body = await res.json();
-      console.log(body);
-      this.course = body.course;
-      this.scorecard = JSON.parse(body.course.tees);
+      // console.log(body);
+      this.course = body.course[0];
+      this.scorecard = body.course[0].tees.search("Error") >= 0 ? "" : JSON.parse(body.course[0].tees);
       console.log(this.scorecard);
     },
     calcHandicap() {
