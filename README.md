@@ -27,9 +27,13 @@ In a different YouTube video, the creator used [heroku](https://heroku.com) to h
 _This is still a work in progress..._
 
 - [ ] Better layout
-- [ ] Tabs for other tools
+- [ ] Pages for other tools
+  - [x] Handicap Calc
+  - [ ] Account
+  - [ ] Contests
 - [ ] Integrated scorecard
 - [ ] Auth
   - [ ] Keeping track of scores
   - [ ] Contests
 - [ ] PWA
+- [x] Use PostgreSQL instead of sqlite
