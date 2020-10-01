@@ -14,10 +14,10 @@ router.get("/", (req, res) => {
       return res.json({ error: err });
     }
 
-    console.log(data);
+    // console.log(data);
 
     if (data.rowCount === 0) {
-      console.log(zip);
+      // console.log(zip);
       let response = await axios(`https://www.zipcodeapi.com/rest/${process.env.ZIP_API_KEY}/info.json/${zip}`);
       let area = {
         zip: Number(response.data.zip_code),
@@ -32,7 +32,7 @@ router.get("/", (req, res) => {
       let locationData = response.data.locationData;
       return res.json({ locationData });
     } else {
-      console.log(data.rows);
+      // console.log(data.rows);
       let locationData = data.rows;
       return res.json({ locationData });
     }

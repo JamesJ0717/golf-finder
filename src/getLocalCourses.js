@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   let resp = await (await axios.get(`${process.env.URL}/api/v1/zip?zip=${req.query.zip}`)).data;
   console.log(resp);
   let locationData = resp.locationData[0];
-  console.log(locationData);
+  // console.log(locationData);
 
   db.getByZip(locationData.zip_code, async (err, rows) => {
     if (err) {
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
     }
 
     let courses = [];
-    console.log(rows.rows);
+    // console.log(rows.rows);
 
     if (rows.rowCount > 0) {
       console.log("No need to hit golflink");
@@ -82,7 +82,7 @@ router.post("/", (req, res) => {
       return res.json({ error: err });
     }
 
-    console.log(data.rows);
+    // console.log(data.rows);
     if (data.rowCount > 0) {
       return res.json({ message: "Get course info from db", course: data.rows });
     } else {
@@ -101,37 +101,23 @@ router.post("/", (req, res) => {
       //   console.log(scorecard);
       const $$ = cheerio.load(scorecard);
       let par;
-      let tees = [];
+      let table;
       if ($$("#body").children().length > 0) {
-        let table = $$(".scorecardtable");
-        table.find("tr[id*=uxParRow]").each((j, col) => {
-          const $col = $$(col);
-          par = $col.find("span[id*=uxParTotal]").text();
-        });
-        table.find("tr[id*=uxTeeRow]").each((j, col) => {
-          let tee = { name: "", rating: 0, slope: 0, yardage: 0 };
-          const $col = $$(col);
-          tee.name = $col.find("span[id*=uxTeeName]").text();
-          tee.rating =
-            $col.find("span[id*=uxRating]").text() === "N/A" ? "N/A" : Number($col.find("span[id*=uxRating]").text());
-          tee.slope = Number($col.find("span[id*=uxSlope]").text());
-          tee.yardage = Number($col.find("span[id*=uxTotal]").text());
-          tees.push(tee);
-        });
+        table = $$(".scorecardtable").html().trim();
+        console.log(table);
       } else {
         par = 0;
-        tees = "Error retrieving scorecard";
+        table = "Error reading scorecard";
       }
 
       let info = {
         name: name,
         slug: req.body.slug,
         url: url,
-        par: par,
-        tees: JSON.stringify(tees),
         zip: Number(req.body.zip),
         dbID: dbID,
         scorecardUrl: scorecardUrl,
+        scorecardHtml: table.trim(),
       };
       // console.log(info);
       db.insertCourse(info, (err, rows) => {
@@ -139,7 +125,7 @@ router.post("/", (req, res) => {
           console.error(err);
           return err;
         }
-        console.log(rows.rows);
+        // console.log(rows.rows);
       });
       return res.json({
         message: "Get course info from golflink",

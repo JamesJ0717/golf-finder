@@ -20,11 +20,10 @@ class Db {
                 name text,
                 slug text UNIQUE,
                 url text,
-                par integer,
-                tees text,
                 zip integer,
                 dbID integer UNIQUE,
-                scorecardUrl text
+                scorecardUrl text,
+                scorecardHtml text
                 );`,
       `
             CREATE TABLE IF NOT EXISTS zips (
@@ -72,8 +71,8 @@ class Db {
 
   insertCourse(course, callback) {
     return this.db.query(
-      "INSERT INTO course(name,slug,url,par,tees,zip,dbID,scorecardUrl) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-      [course.name, course.slug, course.url, course.par, course.tees, course.zip, course.dbID, course.scorecardUrl],
+      "INSERT INTO course(name,slug,url,zip,dbID,scorecardUrl,scorecardHtml) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [course.name, course.slug, course.url, course.zip, course.dbID, course.scorecardUrl, course.scorecardHtml],
       (err, res) => callback(err, res)
     );
   }
