@@ -4,13 +4,13 @@ const app = new Vue({
     zip: 10001,
     courses: null,
     course: null,
-    scorecard: null,
     formVisible: true,
     loading: false,
     done: false,
     courseHandicap: 0,
     playerIndex: 0,
     courseSlope: 0,
+    scorecardhtml: null,
   },
   created() {
     document.addEventListener("DOMContentLoaded", function () {
@@ -20,6 +20,8 @@ const app = new Vue({
   },
   methods: {
     async getCourses() {
+      document.getElementById("courseSelect").style.display = "none";
+      document.getElementById("scorecardDiv").style.display = "none";
       this.loading = true;
       this.course = null;
       // console.log(this.zip);
@@ -27,16 +29,14 @@ const app = new Vue({
       let body = await res.json();
       console.log(body.courses);
       this.courses = body.courses;
-      let courses = body.courses;
-
-      this.done = true;
       const courseList = document.getElementById("courses");
 
       document.getElementById("courseSelect").style.display = "block";
       for (let i = courseList.options.length - 1; i >= 0; i--) {
         courseList.remove(i);
       }
-      courses.forEach((course) => {
+
+      this.courses.forEach((course) => {
         let courseSelector = document.createElement("option");
         courseSelector.setAttribute("value", course.slug);
         courseSelector.textContent = course.name;
@@ -54,10 +54,11 @@ const app = new Vue({
         body: JSON.stringify({ slug: event.target.value }),
       });
       let body = await res.json();
-      // console.log(body);
+      console.log(body);
+
       this.course = body.course[0];
-      this.scorecard = body.course[0].tees.search("Error") >= 0 ? "" : JSON.parse(body.course[0].tees);
-      console.log(this.scorecard);
+      document.getElementById("scorecard").innerHTML = body.course[0].scorecardhtml;
+      document.getElementById("scorecardDiv").style.display = "block";
     },
     calcHandicap() {
       //Course Handicap = (Handicap Index) X (Slope Rating**) ÷ 113

@@ -9,84 +9,62 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
 
-  <body class="grey lighten-3">
-    <nav>
-      <div class="nav-wrapper grey darken-3">
-        <a href="/" class="brand-logo left">Local Golf</a>
-        <ul class="right hide-on-med-and-up">
-          <li>
-            <a class="dropdown-trigger" href="/" data-target="dropdown">
-              <i class="material-icons right">hamburger_menu</i></a
-            >
-          </li>
-        </ul>
+  <body class="grey lighten-2">
+    <main id="app">
+      <nav>
+        <div class="nav-wrapper grey darken-3">
+          <a href="/" class="brand-logo">Local Golf</a>
+          <ul class="right hide-on-med-and-up">
+            <li>
+              <a class="dropdown-trigger" href="/" data-target="dropdown">
+                <i class="material-icons right">hamburger_menu</i></a
+              >
+            </li>
+          </ul>
 
-        <ul id="nav-mobile" class="right hide-on-small-and-down">
-          <li><a href="handiCalc.html">Handicap Calculator</a></li>
-        </ul>
-      </div>
-    </nav>
-    <ul id="dropdown" class="dropdown-content">
-      <li><a href="handiCalc.html">Handicap Calculator</a></li>
-    </ul>
+          <ul id="nav-mobile" class="right hide-on-small-and-down">
+            <li><a href="handiCalc.html">Handicap Calculator</a></li>
+          </ul>
+        </div>
+      </nav>
+      <ul id="dropdown" class="dropdown-content">
+        <li><a href="handiCalc.html">Handicap Calculator</a></li>
+      </ul>
 
-    <main id="app" class="container">
-      <div class="row centered" style="padding: 1em">
-        <form class="form" v-if="formVisible" @submit.prevent="getCourses()">
-          <div class="input-field col s12 l5">
-            <input type="text" v-model="zip" name="zip" id="zip" style="margin: 1em; text-align: center" />
-            <span class="helper-text">Your ZIP</span>
-          </div>
-          <div class="col s12 l6 right">
-            <button type="submit" class="waves-effect waves-teal grey btn-large right" style="width: 100%">
-              Find Courses
-            </button>
-          </div>
-        </form>
-      </div>
+      <div class="container">
+        <div class="row centered" style="padding: 1em">
+          <form class="form" v-if="formVisible" @submit.prevent="getCourses()">
+            <div class="input-field col s12 l5">
+              <input type="text" v-model="zip" name="zip" id="zip" style="margin: 1em; text-align: center" />
+              <span class="helper-text">Your ZIP</span>
+            </div>
+            <div class="col s12 l6 right">
+              <button type="submit" class="waves-effect waves-teal grey btn-large right" style="width: 100%">
+                Find Courses
+              </button>
+            </div>
+          </form>
+        </div>
 
-      <div class="progress" v-if="loading">
-        <div class="indeterminate"></div>
-      </div>
+        <div class="progress" v-if="loading">
+          <div class="indeterminate"></div>
+        </div>
 
-      <div id="courseSelect" class="row" style="display: none">
-        <select id="courses" @change="chooseCourse($event)"></select>
-      </div>
+        <div id="courseSelect" class="row" style="display: none">
+          <select id="courses" @change="chooseCourse($event)"></select>
+        </div>
 
-      <div id="courseInfo" v-if="course">
-        <h3>{{ course.name }}</h3>
-        <a :href="course.url">{{ course.url }}</a>
-        <div class="row">
-          <table class="centered col s4">
-            <thead>
-              <tr>
-                <th>Par</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{ course.par }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="centered col s8">
-            <thead>
-              <tr>
-                <th>Tee</th>
-                <th>Yardage</th>
-                <th>Slope</th>
-                <th>Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="tee in scorecard" :key="tee.name">
-                <td>{{ tee.name }}</td>
-                <td>{{ tee.yardage }}</td>
-                <td>{{ tee.slope }}</td>
-                <td>{{ tee.rating }}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div id="courseInfo" v-if="course">
+          <h3>{{ course.name }}</h3>
+          <a :href="course.url">{{ course.url }}</a>
+        </div>
+
+        <div class="divider"></div>
+
+        <div id="scorecardDiv" class="row" style="display: none">
+          <h4>Scorecard</h4>
+          <table class="col s12 striped responsive-table" id="scorecard"></table>
+          <span>* The data in the scorecard above may be out of date.</span>
         </div>
       </div>
     </main>
