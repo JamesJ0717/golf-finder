@@ -24,5 +24,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn build
+      - run: rm -rf node_modules
       - store_artifacts:
           path: ~/repo
