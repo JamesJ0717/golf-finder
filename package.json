@@ -10,7 +10,8 @@
     "start:server": "ts-node index.js",
     "start:web": "react-scripts start",
     "build:web": "react-scripts build",
-    "start": "npm run tsc && npm run build:web && node index.js"
+    "build": "yarn tsc && yarn build:web",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -55,7 +56,5 @@
     ]
   },
   "proxy": "http://localhost:8080",
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }
