@@ -1,75 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Local Golf</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <title>React App</title>
   </head>
-
-  <body class="grey lighten-2">
-    <main id="app">
-      <nav>
-        <div class="nav-wrapper grey darken-3">
-          <a href="/" class="brand-logo">Local Golf</a>
-          <ul class="right hide-on-med-and-up">
-            <li>
-              <a class="dropdown-trigger" href="/" data-target="dropdown">
-                <i class="material-icons right">hamburger_menu</i></a
-              >
-            </li>
-          </ul>
-
-          <ul id="nav-mobile" class="right hide-on-small-and-down">
-            <li><a href="handiCalc.html">Handicap Calculator</a></li>
-          </ul>
-        </div>
-      </nav>
-      <ul id="dropdown" class="dropdown-content">
-        <li><a href="handiCalc.html">Handicap Calculator</a></li>
-      </ul>
-
-      <div class="container">
-        <div class="row centered" style="padding: 1em">
-          <form class="form" v-if="formVisible" @submit.prevent="getCourses()">
-            <div class="input-field col s12 l5">
-              <input type="text" v-model="zip" name="zip" id="zip" style="margin: 1em; text-align: center" />
-              <span class="helper-text">Your ZIP</span>
-            </div>
-            <div class="col s12 l6 right">
-              <button type="submit" class="waves-effect waves-teal grey btn-large right" style="width: 100%">
-                Find Courses
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <div class="progress" v-if="loading">
-          <div class="indeterminate"></div>
-        </div>
-
-        <div id="courseSelect" class="row" style="display: none">
-          <select id="courses" @change="chooseCourse($event)"></select>
-        </div>
-
-        <div id="courseInfo" v-if="course">
-          <h3>{{ course.name }}</h3>
-          <a :href="course.url">{{ course.url }}</a>
-        </div>
-
-        <div class="divider"></div>
-
-        <div id="scorecardDiv" class="row" style="display: none">
-          <h4>Scorecard</h4>
-          <table class="col s12 striped responsive-table" id="scorecard"></table>
-          <span>* The data in the scorecard above may be out of date.</span>
-        </div>
-      </div>
-    </main>
-    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
-    <script src="app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
   </body>
 </html>
