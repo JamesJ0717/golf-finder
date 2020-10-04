@@ -3,7 +3,6 @@ import axios from "axios";
 import cheerio from "cheerio";
 import Db from "./db";
 import Course from "./Types/Course";
-import Area from "./Types/Area";
 
 const router = express.Router();
 const db = new Db();
@@ -13,6 +12,10 @@ router.get("/", async (req, res) => {
 
   try {
     let resp = await axios.get(`${process.env.URL}/api/v1/zip?zip=${req.query.zip}`);
+    if (resp.data.error) {
+      return res.json({ error: resp.data });
+    }
+    // console.log(resp.data);
     let locationData = resp.data.locationData[0];
     // console.log(locationData);
 
