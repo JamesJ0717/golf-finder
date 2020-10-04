@@ -10,7 +10,7 @@
     "start:server": "ts-node index.js",
     "start:web": "react-scripts start",
     "build:web": "react-scripts build",
-    "start": "yarn run tsc && yarn run build:web && node index.js"
+    "start": "npm run tsc && npm run build:web && node index.js"
   },
   "keywords": [],
   "author": "",
