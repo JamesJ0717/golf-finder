@@ -1,4 +1,12 @@
 version: 2.1
+
+workflows:
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: dev
 jobs:
   build:
     docker:
@@ -16,22 +24,5 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn build
-      - add_ssh_keys:
-          fingerprints:
-            - "9f:a1:11:79:24:ac:47:bd:6f:b1:90:32:4d:49:94:81"
-      - run:
-          name: Deploy to master branch
-          command: |
-            git config user.email me@jamesjohnson.io
-            git config user.name "James Johnson"
-            git commit -m "Build [skip ci]"
-            git push origin master
-
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only: dev
+      - store_artifacts:
+          path: ~/repo
