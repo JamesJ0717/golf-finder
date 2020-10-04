@@ -26,7 +26,7 @@ In a different YouTube video, the creator used [heroku](https://heroku.com) to h
 
 _This is still a work in progress..._
 
-- [ ] Better layout
+- [x] Better layout
 - [ ] Pages for other tools
   - [x] Handicap Calc
   - [ ] Account
