@@ -25,7 +25,7 @@ app.get("/", function (req, res) {
 app.use("/api/v1/zip", getAreaInfo);
 app.use("/api/v1/courses", getLocalCourses);
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
-  console.log(`Example app listening at ${process.env.URL}!`);
+  console.log(`Example app listening on port ${port}!`);
 });
