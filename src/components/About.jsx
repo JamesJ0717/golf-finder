@@ -5,6 +5,7 @@ export const About = () => {
 
   return (
     <div style={pad}>
+      <h4>About</h4>
       <p>
         This is a project of mine that I came up with after watching a YouTube video on web scraping with Node.js. In
         the video, the creator scraped data from Wikipedia, and was able to redisplay the data cleaner. I liked that

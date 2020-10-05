@@ -86,6 +86,7 @@ export const Home = () => {
           <Toast.Body>{error.message}</Toast.Body>
         </Toast>
       ) : (
+        <h4>Find Courses</h4>
         <Row className="justify-content-center">
           <Col sm={12} style={pad}>
             <Row>
