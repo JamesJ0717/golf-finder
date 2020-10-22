@@ -4,25 +4,25 @@ class Course {
     slug: string,
     url: string,
     zip: Number,
-    dbID: Number,
-    scorecardUrl: string,
-    scorecardHtml: string
+    dbid: Number,
+    scorecardurl: string,
+    scorecardhtml: string
   ) {
     this.name = name;
     this.slug = slug;
     this.url = url;
     this.zip = zip;
-    this.dbID = dbID;
-    this.scorecardUrl = scorecardUrl;
-    this.scorecardHtml = scorecardHtml;
+    this.dbid = dbid;
+    this.scorecardurl = scorecardurl;
+    this.scorecardhtml = scorecardhtml;
   }
   name: string;
   slug: string;
   url?: string;
   zip?: Number;
-  dbID?: Number;
-  scorecardUrl?: string;
-  scorecardHtml?: string;
+  dbid?: Number;
+  scorecardurl?: string;
+  scorecardhtml?: string;
 }
 
 export default Course;

@@ -1,31 +1,31 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const path = require("path");
+import express from "express";
+import next from "next";
+import cors from "cors";
+import { json, text, urlencoded } from "body-parser";
+
 require("dotenv").config();
 
-const getLocalCourses = require("./server/getLocalCourses");
-const getAreaInfo = require("./server/getAreaInfo");
+const dev = process.env.NODE_ENV !== "production";
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
-const app = express();
+app.prepare().then(() => {
+  const server = express();
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.text());
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-);
-app.use(express.static(path.join(__dirname, "build")));
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+  server.use(cors());
+  server.use(json());
+  server.use(text());
+  server.use(
+    urlencoded({
+      extended: false,
+    })
+  );
+  server.get("*", (req, res) => {
+    return handle(req, res);
+  });
 
-app.use("/api/v1/zip", getAreaInfo);
-app.use("/api/v1/courses", getLocalCourses);
-
-const port = process.env.PORT || 8080;
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  const port = process.env.PORT;
+  server.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`);
+  });
 });
