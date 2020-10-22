@@ -1,4 +1,5 @@
 # Golf Finder :golf:
+
 [![CircleCI](https://circleci.com/gh/JamesJ0717/golf-finder/tree/master.svg?style=svg)](https://circleci.com/gh/JamesJ0717/golf-finder/tree/master)
 [https://golf-finder.herokuapp.com](https://golf-finder.herokuapp.com)
 
@@ -10,17 +11,7 @@ This was a really cool project for me to work on. It was the first web project I
 
 ## Technologies
 
-### Backend
-
-The backend is all Node.js code.
-
-### Frontend
-
-The frontend is a really simple Vue.js app that is served by the Node backend.
-
-### Hosting
-
-In a different YouTube video, the creator used [heroku](https://heroku.com) to host a Node backend and I didn't have a server running or an EC2 instance to deploy this to, so I tried out heroku. It is suprisingly easy to deploy some code with. They even give you a pretty clean url; [https://golf-finder.herokuapp.com](https://golf-finder.herokuapp.com) is a lot nicer than some of the other options out there.
+I used something new for me this time, Next.js. This is a very popular framework in web development now since it takes the best of React and makes it even easier to develop on top of an api that you write. Everything, front and back end, are in one `src` folder and one command will build both. You no longer have to have one terminal prompt for running your React app and another for running your server. Both are contained in one folder structure that makes sense.
 
 ## TODO
 
