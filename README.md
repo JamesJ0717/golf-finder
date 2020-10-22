@@ -1,5 +1,5 @@
 # Golf Finder :golf:
-
+[![CircleCI](https://circleci.com/gh/JamesJ0717/golf-finder/tree/master.svg?style=svg)](https://circleci.com/gh/JamesJ0717/golf-finder/tree/master)
 [https://golf-finder.herokuapp.com](https://golf-finder.herokuapp.com)
 
 ## What is it?
